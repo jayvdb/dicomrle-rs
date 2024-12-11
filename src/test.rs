@@ -11,7 +11,7 @@ pub mod tests {
         header.resize(64, 0);
 
         // write the u32s to the header bytes
-        LittleEndian::write_u32_into(&values, &mut header);
+        LittleEndian::write_u32_into(values, &mut header);
 
         header
     }

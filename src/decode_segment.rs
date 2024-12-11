@@ -145,10 +145,10 @@ mod tests {
         decoded.resize(3, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(3, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
         compare(&[0, 0, 0], &decoded);
     }
 
@@ -159,10 +159,10 @@ mod tests {
         decoded.resize(3, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(3, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
         compare(&[0, 0, 0], &decoded);
     }
 
@@ -173,10 +173,10 @@ mod tests {
         decoded.resize(2, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(2, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
         compare(&[0, 0], &decoded);
     }
 
@@ -187,10 +187,10 @@ mod tests {
         decoded.resize(1, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(1, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
         compare(&[0], &decoded);
     }
 
@@ -201,10 +201,10 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(true, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(result.invalid_prefix);
     }
 
     #[test]
@@ -214,10 +214,10 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(true, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
     }
 
     #[test]
@@ -227,10 +227,10 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(true, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
     }
 
     #[test]
@@ -240,10 +240,10 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(true, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(result.decoded_overflow);
+        assert!(!result.invalid_prefix);
     }
 
     #[test]
@@ -253,10 +253,10 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(true, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(result.decoded_overflow);
+        assert!(!result.invalid_prefix);
     }
 
     #[test]
@@ -266,9 +266,9 @@ mod tests {
         decoded.resize(0, 0);
         let result = decode_segment(&segment, &mut decoded, 1);
         assert_eq!(0, result.bytes_decoded);
-        assert_eq!(false, result.literal_run_underflow);
-        assert_eq!(false, result.replicated_run_underflow);
-        assert_eq!(false, result.decoded_overflow);
-        assert_eq!(false, result.invalid_prefix);
+        assert!(!result.literal_run_underflow);
+        assert!(!result.replicated_run_underflow);
+        assert!(!result.decoded_overflow);
+        assert!(!result.invalid_prefix);
     }
 }

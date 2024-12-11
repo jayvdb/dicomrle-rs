@@ -23,7 +23,7 @@ mod tests {
             if a[1] != b[1] {
                 assert!(
                     false,
-                    format!("difference found at position {} {}!={}", i, a[i], b[i])
+                    "difference found at position {} {}!={}", i, a[i], b[i]
                 );
             }
         }
@@ -39,7 +39,7 @@ mod tests {
 
         // decode it
         let result = decode(&encoded, &mut decoded)?;
-        assert_eq!(result.incomplete_decode, false);
+        assert!(!result.incomplete_decode);
 
         // read raw image
         let raw = read_file(&format!("tests/rawimage/{}.raw", image_name))?;
@@ -58,17 +58,17 @@ mod tests {
     #[test]
     fn verify_ct_decode_i16() {
         // read rle encoded image
-        let encoded = read_file(&format!("tests/rleimage/ct.rle")).unwrap();
+        let encoded = read_file(&"tests/rleimage/ct.rle".to_string()).unwrap();
 
         let mut decoded: Vec<i16> = Vec::new();
         decoded.resize(512 * 512, 0);
 
         // decode it
         let result = decode_i16(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, false);
+        assert!(!result.incomplete_decode);
 
         // read raw image
-        let raw = read_file(&format!("tests/rawimage/ct.raw")).unwrap();
+        let raw = read_file(&"tests/rawimage/ct.raw".to_string()).unwrap();
 
         let raw_i16 = unsafe {
             let ptr = raw.as_ptr() as *mut i16;
@@ -76,23 +76,23 @@ mod tests {
         };
 
         // compare decoded buffer with raw image
-        images_are_same(&decoded, &raw_i16);
+        images_are_same(&decoded, raw_i16);
     }
 
     #[test]
     fn verify_ct_decode_u16() {
         // read rle encoded image
-        let encoded = read_file(&format!("tests/rleimage/ct.rle")).unwrap();
+        let encoded = read_file(&"tests/rleimage/ct.rle".to_string()).unwrap();
 
         let mut decoded: Vec<u16> = Vec::new();
         decoded.resize(512 * 512, 0);
 
         // decode it
         let result = decode_u16(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, false);
+        assert!(!result.incomplete_decode);
 
         // read raw image
-        let raw = read_file(&format!("tests/rawimage/ct.raw")).unwrap();
+        let raw = read_file(&"tests/rawimage/ct.raw".to_string()).unwrap();
 
         let raw_u16 = unsafe {
             let ptr = raw.as_ptr() as *mut u16;
@@ -100,7 +100,7 @@ mod tests {
         };
 
         // compare decoded buffer with raw image
-        images_are_same(&decoded, &raw_u16);
+        images_are_same(&decoded, raw_u16);
     }
 
     #[test]
@@ -120,27 +120,27 @@ mod tests {
 
     #[test]
     fn verify_rf1_decode() {
-        compare_rle_to_raw("rf1", 512 * 512 * 1).unwrap();
+        compare_rle_to_raw("rf1", 512 * 512).unwrap();
     }
 
     #[test]
     fn verify_partial_rf1_decode() {
         // read rle encoded image
-        let mut encoded = read_file(&"tests/rleimage/rf1.rle").unwrap();
+        let mut encoded = read_file("tests/rleimage/rf1.rle").unwrap();
 
         encoded.resize(encoded.len() - 1024, 0);
 
         let mut decoded: Vec<u8> = Vec::new();
-        decoded.resize(512 * 512 * 1, 0);
+        decoded.resize(512 * 512, 0);
 
         // decode it
         let result = decode(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, true);
+        assert!(result.incomplete_decode);
     }
 
     #[test]
     fn verify_partial_ct1_decode() {
-        let mut encoded = read_file(&"tests/rleimage/ct1.rle").unwrap();
+        let mut encoded = read_file("tests/rleimage/ct1.rle").unwrap();
         encoded.resize(encoded.len() - 1024, 0);
 
         let mut decoded: Vec<u8> = Vec::new();
@@ -148,12 +148,12 @@ mod tests {
 
         // decode it
         let result = decode(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, true);
+        assert!(result.incomplete_decode);
     }
 
     #[test]
     fn verify_partial_ct2_decode() {
-        let mut encoded = read_file(&"tests/rleimage/ct2.rle").unwrap();
+        let mut encoded = read_file("tests/rleimage/ct2.rle").unwrap();
         encoded.resize(encoded.len() / 2, 0);
 
         let mut decoded: Vec<u8> = Vec::new();
@@ -161,12 +161,12 @@ mod tests {
 
         // decode it
         let result = decode(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, true);
+        assert!(result.incomplete_decode);
     }
 
     #[test]
     fn verify_partial_us1_decode() {
-        let mut encoded = read_file(&"tests/rleimage/us1.rle").unwrap();
+        let mut encoded = read_file("tests/rleimage/us1.rle").unwrap();
         encoded.resize(encoded.len() - 150000, 0);
 
         let mut decoded: Vec<u8> = Vec::new();
@@ -174,6 +174,6 @@ mod tests {
 
         // decode it
         let result = decode(&encoded, &mut decoded).unwrap();
-        assert_eq!(result.incomplete_decode, true);
+        assert!(result.incomplete_decode);
     }
 }

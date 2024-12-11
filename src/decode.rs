@@ -47,17 +47,17 @@ pub fn decode(encoded: &[u8], decoded: &mut [u8]) -> Result<DecodeDiagnostics, E
 }
 
 pub fn decode_u16(encoded: &[u8], decoded: &mut [u16]) -> Result<DecodeDiagnostics, Error> {
-    let mut decoded_u8 = unsafe {
+    let decoded_u8 = unsafe {
         let ptr = decoded.as_mut_ptr() as *mut u8;
         slice::from_raw_parts_mut(ptr, decoded.len() * 2)
     };
-    decode(encoded, &mut decoded_u8)
+    decode(encoded, decoded_u8)
 }
 
 pub fn decode_i16(encoded: &[u8], decoded: &mut [i16]) -> Result<DecodeDiagnostics, Error> {
-    let mut decoded_u8 = unsafe {
+    let decoded_u8 = unsafe {
         let ptr = decoded.as_mut_ptr() as *mut u8;
         slice::from_raw_parts_mut(ptr, decoded.len() * 2)
     };
-    decode(encoded, &mut decoded_u8)
+    decode(encoded, decoded_u8)
 }
